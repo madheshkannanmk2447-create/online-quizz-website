@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MADHESH | FIGHTER UNIVERSE</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#020202;
+    color:white;
+    font-family:Arial, sans-serif;
+    overflow-x:hidden;
+}
+
+/* CINEMATIC BACKGROUND */
+
+body:before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:
+    radial-gradient(circle at center,rgba(255,0,0,.15),transparent 35%),
+    linear-gradient(120deg,#050505,#180000,#020202);
+    z-index:-10;
+}
+
+/* NAVBAR */
+
+nav{
+    position:fixed;
+    top:0;
+    width:100%;
+    padding:20px 6%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:rgba(0,0,0,.7);
+    backdrop-filter:blur(15px);
+    z-index:100;
+}
+
+.logo{
+    font-size:25px;
+    font-weight:900;
+    letter-spacing:3px;
+}
+
+.logo span{
+    color:red;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin-left:25px;
+    font-size:12px;
+    letter-spacing:2px;
+}
+
+/* HERO */
+
+.hero{
+    min-height:100vh;
+    position:relative;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+}
+
+/* 3D OCTAGON */
+
+.octagon{
+    position:absolute;
+    width:650px;
+    height:650px;
+
+    border:3px solid rgba(255,0,0,.4);
+
+    clip-path:polygon(
+    25% 0,
+    75% 0,
+    100% 25%,
+    100% 75%,
+    75% 100%,
+    25% 100%,
+    0 75%,
+    0 25%
+    );
+
+    transform:
+    perspective(800px)
+    rotateX(60deg)
+    rotateZ(20deg);
+
+    box-shadow:
+    0 0 50px rgba(255,0,0,.3),
+    inset 0 0 50px rgba(255,0,0,.2);
+
+    animation:spin 20s linear infinite;
+}
+
+@keyframes spin{
+
+    from{
+        transform:
+        perspective(800px)
+        rotateX(60deg)
+        rotateZ(0deg);
+    }
+
+    to{
+        transform:
+        perspective(800px)
+        rotateX(60deg)
+        rotateZ(360deg);
+    }
+
+}
+
+/* FIGHTER BACKGROUND */
+
+.fighters{
+    position:absolute;
+    inset:0;
+    display:flex;
+    justify-content:space-around;
+    align-items:flex-end;
+    padding:0 2%;
+    z-index:1;
+}
+
+.fighter{
+    width:17%;
+    height:75%;
+
+    background-size:cover;
+    background-position:center top;
+
+    filter:
+    grayscale(100%)
+    brightness(.35)
+    contrast(1.4);
+
+    opacity:.65;
+
+    mask-image:linear-gradient(
+        to bottom,
+        black 60%,
+        transparent 100%
+    );
+
+    -webkit-mask-image:linear-gradient(
+        to bottom,
+        black 60%,
+        transparent 100%
+    );
+
+    transition:.5s;
+}
+
+.fighter:hover{
+    opacity:.9;
+    filter:
+    grayscale(0%)
+    brightness(.65)
+    contrast(1.3)
+    drop-shadow(0 0 25px red);
+
+    transform:
+    translateY(-15px)
+    scale(1.04);
+}
+
+/* CENTER CONTENT */
+
+.hero-content{
+    position:relative;
+    z-index:10;
+    text-align:center;
+}
+
+.hero-small{
+    color:#ff3030;
+    letter-spacing:7px;
+    font-size:13px;
+    margin-bottom:20px;
+}
+
+h1{
+    font-size:clamp(55px,9vw,120px);
+    line-height:.85;
+    font-weight:1000;
+    text-shadow:
+    0 10px 40px black,
+    0 0 25px rgba(255,0,0,.3);
+}
+
+h1 span{
+    color:#e50914;
+}
+
+.hero-text{
+    margin-top:25px;
+    color:#aaa;
+    letter-spacing:4px;
+}
+
+.buttons{
+    margin-top:35px;
+}
+
+.btn{
+    display:inline-block;
+    padding:15px 30px;
+    margin:5px;
+    border:1px solid red;
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+    transition:.3s;
+}
+
+.btn:hover{
+    background:red;
+    transform:translateY(-5px);
+    box-shadow:0 10px 30px rgba(255,0,0,.4);
+}
+
+/* SECTION */
+
+section{
+    padding:110px 7%;
+}
+
+.title{
+    text-align:center;
+    margin-bottom:55px;
+}
+
+.title small{
+    color:red;
+    letter-spacing:5px;
+}
+
+.title h2{
+    font-size:50px;
+    margin-top:10px;
+}
+
+/* FIGHTER GRID */
+
+.fighter-grid{
+    display:grid;
+    grid-template-columns:
+    repeat(4,1fr);
+    gap:20px;
+    max-width:1200px;
+    margin:auto;
+}
+
+.card{
+    height:430px;
+    position:relative;
+    overflow:hidden;
+
+    background:#111;
+
+    border:1px solid #292929;
+
+    transition:.5s;
+}
+
+.card:hover{
+    transform:
+    perspective(700px)
+    rotateY(-8deg)
+    translateY(-10px);
+
+    border-color:red;
+    box-shadow:0 20px 50px rgba(255,0,0,.2);
+}
+
+.card img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+
+    filter:
+    grayscale(30%)
+    brightness(.65);
+
+    transition:.5s;
+}
+
+.card:hover img{
+    transform:scale(1.1);
+    filter:
+    grayscale(0%)
+    brightness(.8);
+}
+
+.card-info{
+    position:absolute;
+    bottom:0;
+    width:100%;
+    padding:25px;
+
+    background:
+    linear-gradient(
+    transparent,
+    rgba(0,0,0,.95)
+    );
+}
+
+.card-info h3{
+    font-size:25px;
+}
+
+.card-info p{
+    color:#ff3030;
+    margin-top:5px;
+    font-size:12px;
+    letter-spacing:2px;
+}
+
+/* STATS */
+
+.stats{
+    max-width:1100px;
+    margin:auto;
+
+    display:grid;
+    grid-template-columns:
+    repeat(4,1fr);
+
+    gap:20px;
+}
+
+.stat{
+    text-align:center;
+    padding:40px 15px;
+    background:#0c0c0c;
+    border:1px solid #222;
+}
+
+.stat h3{
+    color:red;
+    font-size:45px;
+}
+
+.stat p{
+    color:#888;
+    letter-spacing:2px;
+}
+
+/* ABOUT */
+
+.about{
+    max-width:900px;
+    margin:auto;
+    text-align:center;
+}
+
+.about p{
+    color:#999;
+    line-height:2;
+}
+
+/* FOOTER */
+
+footer{
+    text-align:center;
+    padding:40px;
+    border-top:1px solid #222;
+    color:#555;
+    letter-spacing:2px;
+}
+
+/* MOBILE */
+
+@media(max-width:800px){
+
+    nav div:last-child{
+        display:none;
+    }
+
+    .fighters{
+        opacity:.5;
+    }
+
+    .fighter{
+        width:25%;
+    }
+
+    .fighter:nth-child(4),
+    .fighter:nth-child(5){
+        display:none;
+    }
+
+    .fighter-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+
+}
+
+@media(max-width:500px){
+
+    .fighter-grid{
+        grid-template-columns:1fr;
+    }
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .octagon{
+        width:350px;
+        height:350px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- NAVIGATION -->
+
+<nav>
+
+<div class="logo">
+MADHESH<span>.</span>
+</div>
+
+<div>
+<a href="#home">HOME</a>
+<a href="#fighters">FIGHTERS</a>
+<a href="#stats">STATS</a>
+<a href="#about">ABOUT</a>
+</div>
+
+</nav>
+
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+
+<div class="octagon"></div>
+
+
+<!-- BACKGROUND FIGHTERS -->
+
+<div class="fighters">
+
+<div class="fighter"
+style="background-image:url('https://commons.wikimedia.org/wiki/Special:Redirect/file/Khabib_nurmagomedov.jpg');">
+</div>
+
+<div class="fighter"
+style="background-image:url('https://commons.wikimedia.org/wiki/Special:Redirect/file/Conor_McGregor.jpg');">
+</div>
+
+<div class="fighter"
+style="background-image:url('https://commons.wikimedia.org/wiki/Special:Redirect/file/Israel_Adesanya_UFC_271.jpg');">
+</div>
+
+<div class="fighter"
+style="background-image:url('https://commons.wikimedia.org/wiki/Special:Redirect/file/Mike_Tyson.jpg');">
+</div>
+
+</div>
+
+
+<!-- HERO TEXT -->
+
+<div class="hero-content">
+
+<div class="hero-small">
+MMA • BOXING • FIGHTER UNIVERSE
+</div>
+
+<h1>
+FIGHT<br>
+<span>LEGENDS</span>
+</h1>
+
+<p class="hero-text">
+DISCIPLINE • POWER • TECHNIQUE • MENTALITY
+</p>
+
+<div class="buttons">
+
+<a href="#fighters" class="btn">
+EXPLORE FIGHTERS
+</a>
+
+<a href="#about" class="btn">
+MY JOURNEY
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- FIGHTERS -->
+
+<section id="fighters">
+
+<div class="title">
+
+<small>FIGHT NIGHT</small>
+
+<h2>FIGHTER LEGENDS</h2>
+
+</div>
+
+
+<div class="fighter-grid">
+
+
+<div class="card">
+
+<img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Khabib_nurmagomedov.jpg">
+
+<div class="card-info">
+
+<h3>KHABIB</h3>
+
+<p>THE EAGLE</p>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Conor_McGregor.jpg">
+
+<div class="card-info">
+
+<h3>CONOR</h3>
+
+<p>THE NOTORIOUS</p>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Israel_Adesanya_UFC_271.jpg">
+
+<div class="card-info">
+
+<h3>ADESANYA</h3>
+
+<p>THE STYLEBENDER</p>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Mike_Tyson.jpg">
+
+<div class="card-info">
+
+<h3>MIKE TYSON</h3>
+
+<p>IRON MIKE</p>
+
+</div>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+
+<!-- STATS -->
+
+<section id="stats">
+
+<div class="title">
+
+<small>FIGHTER MINDSET</small>
+
+<h2>THE NUMBERS</h2>
+
+</div>
+
+
+<div class="stats">
+
+<div class="stat">
+
+<h3>4</h3>
+
+<p>FIGHT LEGENDS</p>
+
+</div>
+
+
+<div class="stat">
+
+<h3>2</h3>
+
+<p>FIGHT SPORTS</p>
+
+</div>
+
+
+<div class="stat">
+
+<h3>100%</h3>
+
+<p>DISCIPLINE</p>
+
+</div>
+
+
+<div class="stat">
+
+<h3>24/7</h3>
+
+<p>MENTALITY</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- ABOUT -->
+
+<section id="about">
+
+<div class="title">
+
+<small>MY PORTFOLIO</small>
+
+<h2>MADHESH</h2>
+
+</div>
+
+
+<div class="about">
+
+<p>
+
+Welcome to my fighter portfolio.
+
+I am MADHESH, an ECE student with an interest
+in MMA, boxing, fitness, technology and
+fighter mentality.
+
+This website combines the world of combat sports
+with a cinematic 3D design.
+
+My goal is simple:
+
+<strong>
+TRAIN • LEARN • IMPROVE • NEVER QUIT
+</strong>
+
+</p>
+
+</div>
+
+</section>
+
+
+
+<footer>
+
+MADHESH KANNAN • FIGHTER PORTFOLIO
+
+</footer>
+
+
+</body>
+</html>
